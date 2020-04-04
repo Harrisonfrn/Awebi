@@ -4,25 +4,40 @@
 
 {% block body %}
 
-    <section class="rapports">
+    {# <section class="rapports">
         <rapport>
             <h2>Titre du rapport</h2>
             <div class="metadata">Rapport du 10/05/2020 à 15:00</div>
             <a href="{{path('rapport_show')}}" class="btn btn-primary">Voir le rapport</a>
             <a href="" class="btn btn-primary">Telecharger le rapport</a>
         </rapport>
-        <rapport>
-            <h2>Titre du rapport</h2>
-            <div class="metadata">Rapport du 10/05/2020 à 15:00</div>
-            <a href="{{path('rapport_show')}}" class="btn btn-primary">Voir le rapport</a>
-            <a href="" class="btn btn-primary">Telecharger le rapport</a>
-        </rapport>
-        <rapport>
-            <h2>Titre du rapport</h2>
-            <div class="metadata">Rapport du 10/05/2020 à 15:00</div>
-            <a href="{{path('rapport_show')}}" class="btn btn-primary">Voir le rapport</a>
-            <a href="" class="btn btn-primary">Telecharger le rapport</a>
-        </rapport>
-    </section>
+    </section> #}
+
+    <div class="jumbotron text-center">
+        <h1>Historique des rapports de l'agence Awebi</h1>
+    </div>
+
+    <div class="container">
+        <h2 class="text-center">Les derniers rapports</h2>
+            <div class="row flex mt-4">
+                {% for cdc in cdcs %}
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h5>
+                                        <a href="{{path('cdc_show', {id: cdc.id, slug: cdc.slug})}}">{{ cdc.title }}</a>
+                                    </h5>
+                                        <p class="card-text">{{ cdc.description }}</p>
+                                            <div class="text-primary">
+                                                <a href="" class="btn btn-primary">Telecharger le rapport</a>
+                                            </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+    </div>
     
 {% endblock %}

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Cdc;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Cdc|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +18,38 @@ class CdcRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Cdc::class);
+    }
+
+
+    /**
+     * @return Cdc[] 
+     */
+    public function findAllVisible(): array
+    {
+        return $this->findVisibleQuery('c')
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @return Cdc[] 
+     */
+    public function findLatest(): array
+    {
+        return $this->findVisibleQuery('c')
+        ->orderBy('c.id', 'ASC')
+        ->setMaxResults(10)
+        ->getQuery()
+        ->getResult()
+    ;
+    }
+
+    private function findVisibleQuery(): QueryBuilder
+    {
+        return $this->createQueryBuilder('c')
+        ->orderBy('c.id', 'ASC');
     }
 
     // /**

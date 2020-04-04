@@ -3,11 +3,24 @@
 namespace App\Controller;
 
 use App\Entity\Cdc;
+use App\Repository\CdcRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
+    /**
+     * @var CdcRepository
+     */
+    private $cdcRepository;
+
+    public function __construct(CdcRepository $cdcRepository, EntityManagerInterface $em)
+    {
+        $this->cdcRepository = $cdcRepository;
+        $this->em = $em;
+    }
+
     /**
      * @Route("/", name="home")
      */
@@ -21,19 +34,31 @@ class HomeController extends AbstractController
     /**
      * @Route("/rapport/historique", name="historique")
      */
-    public function historique()
+    public function historique(CdcRepository $cdcRepository)
     {
-       $repo = $this->getDoctrine()->getRepository(Cdc::class);
-       dump($repo);
+        $cdcs = $cdcRepository->findLatest();
 
-        return $this->render('home/historique.html.twig');
+        return $this->render('home/historique.html.twig', [
+            'cdcs' => $cdcs,
+            'current_menu' => 'rapports'
+        ]);
     }
 
     /**
-     * @Route("/rapport/12", name="rapport_show")
+     * @Route("/rapport/{slug}-{id}", name="cdc_show", requirements={"slug": "[a-z0-9\-]*"})
      */
-    public function show()
+    public function show(Cdc $cdc, string $slug)
     {
-        return $this->render('home/show.html.twig');
+        if($cdc->getSlug() !== $slug){
+            return $this->redirectToRoute('cdc_show',[
+                'id' => $cdc->getId(),
+                'slug' => $cdc->getSlug()
+            ], 301);
+        }
+
+        return $this->render('cdc/showCdc.html.twig', [
+            'cdc' => $cdc,
+            'current_menu' => 'rapports'
+        ]);
     }
 }
