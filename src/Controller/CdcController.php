@@ -4,16 +4,43 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Cdc;
+use App\Form\CdcType;
+use App\Repository\CdcRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class CdcController extends AbstractController
 {
-    /**
-     * @Route("/cdc", name="cdc")
-     */
-    public function index()
+
+    private $em;
+
+    public function __construct(CdcRepository $cdcRepository, EntityManagerInterface $em)
     {
-        return $this->render('cdc/index.html.twig', [
-            'controller_name' => 'CdcController',
+        $this->cdcRepository = $cdcRepository;
+        $this->em = $em;
+    }
+
+    /**
+     * @Route("/newCdc", name="cdc_new")
+     */
+    public function new(Request $request)
+    {
+        $cdc = new Cdc;
+        $cdcForm = $this->createForm(CdcType::class, $cdc);
+        $cdcForm->handleRequest($request);
+
+        if ($cdcForm->isSubmitted() && $cdcForm->isValid()) {
+            $this->em->persist($cdc);
+            $this->em->flush();
+            
+
+            return $this->redirectToRoute('historique');
+        }
+
+        return $this->render('cdc/newCdc.html.twig', [
+            'cdc' => $cdc,
+            'cdcForm' => $cdcForm->createView()
         ]);
     }
 }

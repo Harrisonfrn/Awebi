@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Création d'un cahier des charges{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="text-center">Créer le cahier des charges</h1>
+       {{ include ('admin/rapport/_formCdc.html.twig', {form: cdcForm, button: 'Enregistrer'}) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+ {{ form_start(cdcForm) }}
+        <div class="row">
+            <div class="col-md-4">{{ form_row(cdcForm.title) }}</div>
+            <div class="col-md-4">{{ form_row(cdcForm.fonction) }}</div>
+            <div class="col-md-4">{{ form_row(cdcForm.priority) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">{{ form_row(cdcForm.objectif) }}</div>
+            <div class="col-md-4">{{ form_row(cdcForm.description) }}</div>
+            <div class="col-md-4">{{ form_row(cdcForm.contrainte) }}</div>
+        </div>
+            {{ form_widget(cdcForm) }}
+            <button class="btn btn-primary">{{button|default('Enregistrer')}}</button>
+{{ form_end(cdcForm) }}

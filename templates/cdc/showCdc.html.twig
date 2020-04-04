@@ -11,7 +11,7 @@
 
     <div class="jumbotron">
         <div class="container">
-            <h1>Cahier des charges: {{ cdc.title }} du {{ cdc.createdAt | date("m/d/Y") }} à {{ cdc.createdAt | date("H:i") }}</h1>
+            <h1>Cahier des charges: {{ cdc.title }} - {{ cdc.createdAt | date("m/d/Y") }} à {{ cdc.createdAt | date("H:i") }}</h1>
         </div>
     </div>
 
@@ -23,7 +23,7 @@
             <h2>Contrainte : {{ cdc.contrainte }}</h2>
             <h2>Priorité : {{ cdc.priority }}</h2>
 
-            <a href="" class="btn btn-primary">Telecharger le rapport</a>
+            <a href="" class="btn btn-primary">Telecharger le cahier des charges</a>
         </div>
     </div>
 {% endblock %}

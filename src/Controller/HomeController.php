@@ -38,6 +38,9 @@ class HomeController extends AbstractController
     {
         $cdcs = $cdcRepository->findLatest();
 
+        // $recettage = $this->recettageRepository->find(1);
+        // dump($recettage);
+
         return $this->render('home/historique.html.twig', [
             'cdcs' => $cdcs,
             'current_menu' => 'rapports'
@@ -47,7 +50,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/rapport/{slug}-{id}", name="cdc_show", requirements={"slug": "[a-z0-9\-]*"})
      */
-    public function show(Cdc $cdc, string $slug)
+    public function showCdc(Cdc $cdc, string $slug)
     {
         if($cdc->getSlug() !== $slug){
             return $this->redirectToRoute('cdc_show',[
@@ -60,5 +63,13 @@ class HomeController extends AbstractController
             'cdc' => $cdc,
             'current_menu' => 'rapports'
         ]);
+    }
+
+    /**
+     * @Route("/rapport/12", name="recettage_show")
+     */
+    public function showRecettage()
+    {
+        return $this->render('recettage/showRecettage.html.twig');
     }
 }
