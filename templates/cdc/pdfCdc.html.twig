@@ -1,0 +1,18 @@
+{% block body %}
+
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Cahier des charges: {{ cdc.title }} - {{ cdc.createdAt | date("m/d/Y") }} à {{ cdc.createdAt | date("H:i") }}</h1>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="col-md-6">
+            <h2>Fonction : {{ cdc.fonction }}</h2>
+            <h2>Objectif : {{ cdc.objectif }}</h2>
+            <h2>Description : {{ cdc.description | nl2br }}</h2>
+            <h2>Contrainte : {{ cdc.contrainte }}</h2>
+            <h2>Priorité : {{ cdc.priority }}</h2>
+        </div>
+    </div>
+{% endblock %}

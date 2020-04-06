@@ -7,6 +7,8 @@ use App\Repository\CdcRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class HomeController extends AbstractController
 {
@@ -71,5 +73,37 @@ class HomeController extends AbstractController
     public function showRecettage()
     {
         return $this->render('recettage/showRecettage.html.twig');
+    }
+
+    /**
+     * @Route("/pdfCdc/{slug}-{id}", name="pdfCdc", requirements={"slug": "[a-z0-9\-]*"})
+     */
+    public function downloadPdfCdc(Cdc $cdc)
+    {
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+        
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('Cdc/pdfCdc.html.twig', [
+            'cdc' => $cdc
+        ]);
+        
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+        
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream("Cahier_Des_Charges.pdf", [
+            "Attachment" => true
+        ]);
     }
 }

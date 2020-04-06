@@ -30,7 +30,7 @@
                                     </h5>
                                         <p class="card-text">{{ cdc.description }}</p>
                                             <div class="text-primary">
-                                                <a href="" class="btn btn-primary">Telecharger le cahier des charges</a>
+                                                <a href="{{ path('pdfCdc', {id: cdc.id, slug: cdc.slug}) }}" class="btn btn-primary">Telecharger le cahier des charges</a>
                                             </div>
                                 </div>
                             </div>
