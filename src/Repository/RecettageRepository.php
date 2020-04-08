@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Recettage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Recettage|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +18,37 @@ class RecettageRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Recettage::class);
+    }
+
+    /**
+     * @return Recettage[] 
+     */
+    public function findAllVisible(): array
+    {
+        return $this->findVisibleQuery('r')
+            ->orderBy('r.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @return Recettage[] 
+     */
+    public function findLatest(): array
+    {
+        return $this->findVisibleQuery('r')
+        ->orderBy('r.id', 'ASC')
+        ->setMaxResults(10)
+        ->getQuery()
+        ->getResult()
+    ;
+    }
+
+    private function findVisibleQuery(): QueryBuilder
+    {
+        return $this->createQueryBuilder('r')
+        ->orderBy('r.id', 'ASC');
     }
 
     // /**

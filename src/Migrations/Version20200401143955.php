@@ -23,7 +23,7 @@ final class Version20200401143955 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('CREATE TABLE cdc (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, fonction VARCHAR(255) NOT NULL, objectif LONGTEXT NOT NULL, description LONGTEXT NOT NULL, contrainte LONGTEXT NOT NULL, priority VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE recettage (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, navigator INT NOT NULL, status INT NOT NULL, ask INT DEFAULT NULL, bug INT DEFAULT NULL, ask_fonctionnality VARCHAR(255) DEFAULT NULL, created_at DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        //$this->addSql('CREATE TABLE recettage (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, navigator INT NOT NULL, status INT NOT NULL, ask INT DEFAULT NULL, bug INT DEFAULT NULL, ask_fonctionnality VARCHAR(255) DEFAULT NULL, created_at DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
     }
 
     public function down(Schema $schema) : void
@@ -32,6 +32,6 @@ final class Version20200401143955 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('DROP TABLE cdc');
-        $this->addSql('DROP TABLE recettage');
+        //$this->addSql('DROP TABLE recettage');
     }
 }

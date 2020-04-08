@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Création d'un recettage{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="text-center">Créer le recettage</h1>
+       {{ include ('admin/rapport/_formRecettage.html.twig', {form: recettageForm, button: 'Enregistrer'}) }}
+    </div>
+{% endblock %}

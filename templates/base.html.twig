@@ -20,13 +20,13 @@
                   <a class="nav-link " href="{{ path('admin')}}">Admin</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link " href="{{ path('historique')}}">Historique</a>
+                  <a class="nav-link {% if current_menu is defined and current_menu == 'historique' %} active {% endif %}" href="{{ path('historique')}}">Historique</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link " href="">Créer un recettage</a>
+                  <a class="nav-link {% if current_menu is defined and current_menu == 'creationRecettage' %} active {% endif %}" href="{{ path('new_recettage') }}">Créer un recettage</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link " href="{{ path('cdc_new') }}">Créer un cdc</a>
+                  <a class="nav-link {% if current_menu is defined and current_menu == 'creationCdc' %} active {% endif %}" href="{{ path('cdc_new') }}">Créer un cdc</a>
                 </li>
               </ul>
 

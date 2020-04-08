@@ -1,0 +1,14 @@
+ {{ form_start(recettageForm) }}
+        <div class="row">
+            <div class="col-md-4">{{ form_row(recettageForm.title) }}</div>
+            <div class="col-md-4">{{ form_row(recettageForm.navigator) }}</div>
+            <div class="col-md-4">{{ form_row(recettageForm.status) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">{{ form_row(recettageForm.ask) }}</div>
+            <div class="col-md-4">{{ form_row(recettageForm.bug) }}</div>
+            <div class="col-md-4">{{ form_row(recettageForm.ask_fonctionality) }}</div>
+        </div>
+            {{ form_widget(recettageForm) }}
+            <button class="btn btn-primary">{{button|default('Enregistrer')}}</button>
+{{ form_end(recettageForm) }}

@@ -3,39 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Cocur\Slugify\Slugify;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RecettageRepository")
  */
 class Recettage
 {
-    const NAVIGATOR = [
-        0 => 'Chrome',
-        1 => 'Firefox',
-        2 => 'Explorer',
-        3 => 'Qwant'
-    ];
-
-    const STATUS = [
-        0 => 'Non planiffiée',
-        1 => 'Planifiée',
-        2 => 'En cours',
-        3 => 'Terminer'
-    ];
-
-    const ASK = [
-        0 => 'Produit',
-        1 => 'Platforme'
-    ];
-
-    const BUG = [
-        0 => 'Produit',
-        1 => 'Platforme',
-        2 => 'Environement et version',
-        3 => 'Navigateur',
-        4 => 'Gravité'
-    ];
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -49,29 +24,29 @@ class Recettage
     private $title;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $navigator;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $status;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $ask;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $bug;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $askFonctionnality;
+    private $ask_fonctionality;
 
     /**
      * @ORM\Column(type="datetime")
@@ -100,62 +75,67 @@ class Recettage
         return $this;
     }
 
-    public function getNavigator(): ?int
+    public function getSlug(): ?string
+    {
+        return (new Slugify())->slugify($this->title);
+    }
+
+    public function getNavigator(): ?string
     {
         return $this->navigator;
     }
 
-    public function setNavigator(int $navigator): self
+    public function setNavigator(string $navigator): self
     {
         $this->navigator = $navigator;
 
         return $this;
     }
 
-    public function getStatus(): ?int
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    public function setStatus(int $status): self
+    public function setStatus(string $status): self
     {
         $this->status = $status;
 
         return $this;
     }
 
-    public function getAsk(): ?int
+    public function getAsk(): ?string
     {
         return $this->ask;
     }
 
-    public function setAsk(?int $ask): self
+    public function setAsk(?string $ask): self
     {
         $this->ask = $ask;
 
         return $this;
     }
 
-    public function getBug(): ?int
+    public function getBug(): ?string
     {
         return $this->bug;
     }
 
-    public function setBug(?int $bug): self
+    public function setBug(?string $bug): self
     {
         $this->bug = $bug;
 
         return $this;
     }
 
-    public function getAskFonctionnality(): ?string
+    public function getAskFonctionality(): ?string
     {
-        return $this->askFonctionnality;
+        return $this->ask_fonctionality;
     }
 
-    public function setAskFonctionnality(?string $askFonctionnality): self
+    public function setAskFonctionality(?string $ask_fonctionality): self
     {
-        $this->askFonctionnality = $askFonctionnality;
+        $this->ask_fonctionality = $ask_fonctionality;
 
         return $this;
     }

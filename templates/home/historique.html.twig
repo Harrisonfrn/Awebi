@@ -18,7 +18,7 @@
     </div>
 
     <div class="container">
-        <h2 class="text-center">Les derniers rapports</h2>
+        <h2 class="text-center">Les derniers cahier des charge</h2>
             <div class="row flex mt-4">
                 {% for cdc in cdcs %}
                     <div class="col-3">
@@ -31,6 +31,29 @@
                                         <p class="card-text">{{ cdc.description }}</p>
                                             <div class="text-primary">
                                                 <a href="{{ path('pdfCdc', {id: cdc.id, slug: cdc.slug}) }}" class="btn btn-primary">Telecharger le cahier des charges</a>
+                                            </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+    </div>
+
+    <div class="container">
+        <h2 class="text-center">Les derniers recettage</h2>
+            <div class="row flex mt-4">
+                {% for recettage in recettages %}
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h5>
+                                        <a href="{{ path('recettage_show', {id: recettage.id, slug: recettage.slug}) }}">{{ recettage.title }}</a>
+                                    </h5>
+                                        <p class="card-text">{{ recettage.navigator }}</p>
+                                            <div class="text-primary">
+                                                <a href="{{ path('pdfRecettage', {id: recettage.id, slug: recettage.slug}) }}" class="btn btn-primary">Telecharger le recettage</a>
                                             </div>
                                 </div>
                             </div>

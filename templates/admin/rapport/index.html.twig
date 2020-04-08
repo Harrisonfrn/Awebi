@@ -5,7 +5,7 @@
 {% block body %}
 
     <div class="container mt-4">
-        <h1>Gérer les rapports</h1>
+        <h1>Gérer les cahier des charges</h1>
 
             {% for message in app.flashes('success')  %}
             <div class="alert alert-success">
@@ -29,6 +29,40 @@
                             <form method="POST" action="{{ path('admin_deleteCdc', {id: cdc.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes vous vraiment sûr ?')">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ cdc.id) }}">
+                                <button class="btn btn-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+    </div>
+
+    <div class="container mt-4">
+        <h1>Gérer les recettages</h1>
+
+            {% for message in app.flashes('success')  %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for recettage in recettages %}
+                    <tr>
+                        <td>{{recettage.title}}</td>
+                        <td>
+                            <a href="{{path('admin_editRecettage', {id: recettage.id})}}" class="btn btn-secondary">Editer le recettage</a>
+                            <form method="POST" action="{{ path('admin_deleteCdc', {id: recettage.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes vous vraiment sûr ?')">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ recettage.id) }}">
                                 <button class="btn btn-danger">Supprimer</button>
                             </form>
                         </td>

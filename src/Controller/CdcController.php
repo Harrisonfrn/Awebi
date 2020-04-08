@@ -40,7 +40,8 @@ class CdcController extends AbstractController
 
         return $this->render('cdc/newCdc.html.twig', [
             'cdc' => $cdc,
-            'cdcForm' => $cdcForm->createView()
+            'cdcForm' => $cdcForm->createView(),
+            'current_menu' => 'creationCdc'
         ]);
     }
 }

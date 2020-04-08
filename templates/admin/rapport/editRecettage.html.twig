@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Edition d'un recettage{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="text-center">Editer le recettage</h1>
+       {{ include ('admin/rapport/_formRecettage.html.twig', {form: recettageForm, button: 'Editer'}) }}
+    </div>
+{% endblock %}

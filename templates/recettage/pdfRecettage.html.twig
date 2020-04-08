@@ -1,14 +1,4 @@
-{% extends "base.html.twig" %}
-
-{% block title recettage.title %}
-
 {% block body %}
-    {# <rapport>
-            <h2>Titre du rapport</h2>
-            <div class="metadata">Rapport du 10/05/2020 à 15:00</div>
-            <a href="" class="btn btn-primary">Telecharger le rapport</a>
-    </rapport> #}
-
     <div class="jumbotron">
         <div class="container">
             <h1>Recettage: {{ recettage.title }} - {{ recettage.createdAt | date("m/d/Y") }} à {{ recettage.createdAt | date("H:i") }}</h1>
@@ -20,10 +10,8 @@
             <h2>Navigateur : {{ recettage.navigator }}</h2>
             <h2>Status de la fonctionalité : {{ recettage.status }}</h2>
             <h2>Poser une question : {{ recettage.ask | nl2br }}</h2>
-            <h2>Signaler un bug : {{ recettage.bug }}</h2>
+            <h2>Signaler un buf : {{ recettage.bug }}</h2>
             <h2>Demander une fonctionalité : {{ recettage.askfonctionality }}</h2>
-
-            <a href="" class="btn btn-primary">Telecharger le recettage</a>
         </div>
     </div>
 {% endblock %}

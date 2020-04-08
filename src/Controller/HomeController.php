@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Cdc;
+use App\Entity\Recettage;
 use App\Repository\CdcRepository;
+use App\Repository\RecettageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,10 +18,12 @@ class HomeController extends AbstractController
      * @var CdcRepository
      */
     private $cdcRepository;
+    private $recettageRepository;
 
-    public function __construct(CdcRepository $cdcRepository, EntityManagerInterface $em)
+    public function __construct(CdcRepository $cdcRepository, RecettageRepository $recettageRepository, EntityManagerInterface $em)
     {
         $this->cdcRepository = $cdcRepository;
+        $this->recettageRepository = $recettageRepository;
         $this->em = $em;
     }
 
@@ -36,21 +40,21 @@ class HomeController extends AbstractController
     /**
      * @Route("/rapport/historique", name="historique")
      */
-    public function historique(CdcRepository $cdcRepository)
+    public function historique(CdcRepository $cdcRepository, RecettageRepository $recettageRepository)
     {
         $cdcs = $cdcRepository->findLatest();
 
-        // $recettage = $this->recettageRepository->find(1);
-        // dump($recettage);
+        $recettages = $recettageRepository->findLatest();
 
         return $this->render('home/historique.html.twig', [
             'cdcs' => $cdcs,
-            'current_menu' => 'rapports'
+            'recettages' => $recettages,
+            'current_menu' => 'historique'
         ]);
     }
 
     /**
-     * @Route("/rapport/{slug}-{id}", name="cdc_show", requirements={"slug": "[a-z0-9\-]*"})
+     * @Route("/rapport/cahier_des_charges/{slug}-{id}", name="cdc_show", requirements={"slug": "[a-z0-9\-]*"})
      */
     public function showCdc(Cdc $cdc, string $slug)
     {
@@ -62,17 +66,25 @@ class HomeController extends AbstractController
         }
 
         return $this->render('cdc/showCdc.html.twig', [
-            'cdc' => $cdc,
-            'current_menu' => 'rapports'
+            'cdc' => $cdc
         ]);
     }
 
     /**
-     * @Route("/rapport/12", name="recettage_show")
+     * @Route("/rapport/recettage/{slug}-{id}", name="recettage_show", requirements={"slug": "[a-z0-9\-]*"})
      */
-    public function showRecettage()
+    public function showRecettage(Recettage $recettage, string $slug)
     {
-        return $this->render('recettage/showRecettage.html.twig');
+        if($recettage->getSlug() !== $slug){
+            return $this->redirectToRoute('recettage_show',[
+                'id' => $recettage->getId(),
+                'slug' => $recettage->getSlug()
+            ], 301);
+        }
+
+        return $this->render('recettage/showRecettage.html.twig',[
+            'recettage' => $recettage,
+        ]);
     }
 
     /**
@@ -103,6 +115,39 @@ class HomeController extends AbstractController
 
         // Output the generated PDF to Browser (force download)
         $dompdf->stream("Cahier_Des_Charges.pdf", [
+            "Attachment" => true
+        ]);
+    }
+
+
+    /**
+     * @Route("/pdfRecettage/{slug}-{id}", name="pdfRecettage", requirements={"slug": "[a-z0-9\-]*"})
+     */
+    public function downloadPdfRecettage(Recettage $recettage)
+    {
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+        
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('recettage/pdfRecettage.html.twig', [
+            'recettage' => $recettage
+        ]);
+        
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+        
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream("Recettage.pdf", [
             "Attachment" => true
         ]);
     }
