@@ -19,8 +19,13 @@
               <li class="nav-item">
                   <a class="nav-link " href="{{ path('admin')}}">Admin</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link {% if current_menu is defined and current_menu == 'historique' %} active {% endif %}" href="{{ path('historique')}}">Historique</a>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Historique
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ path('historiqueRecettage') }}">Recettage</a>
+                    <a class="dropdown-item" href="{{ path('historiqueCdc') }}">Cahier des charges</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link {% if current_menu is defined and current_menu == 'creationRecettage' %} active {% endif %}" href="{{ path('new_recettage') }}">Créer un recettage</a>

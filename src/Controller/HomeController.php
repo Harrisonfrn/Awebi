@@ -38,18 +38,26 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/rapport/historique", name="historique")
+     * @Route("/rapport/historiqueCdc", name="historiqueCdc")
      */
-    public function historique(CdcRepository $cdcRepository, RecettageRepository $recettageRepository)
+    public function historiqueCdc(CdcRepository $cdcRepository)
     {
-        $cdcs = $cdcRepository->findLatest();
+        $cdcs = $cdcRepository->findAllVisible();
 
-        $recettages = $recettageRepository->findLatest();
+        return $this->render('home/historiqueCdc.html.twig', [
+            'cdcs' => $cdcs
+        ]);
+    }
 
-        return $this->render('home/historique.html.twig', [
-            'cdcs' => $cdcs,
-            'recettages' => $recettages,
-            'current_menu' => 'historique'
+    /**
+     * @Route("/rapport/historiqueRecettage", name="historiqueRecettage")
+     */
+    public function historiqueRecettage(RecettageRepository $recettageRepository)
+    {
+        $recettages = $recettageRepository->findAllVisible();
+
+        return $this->render('home/historiqueRecettage.html.twig', [
+            'recettages' => $recettages
         ]);
     }
 

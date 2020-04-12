@@ -23,7 +23,7 @@
             <h2>Signaler un bug : {{ recettage.bug }}</h2>
             <h2>Demander une fonctionalité : {{ recettage.askfonctionality }}</h2>
 
-            <a href="" class="btn btn-primary">Telecharger le recettage</a>
+            <a href="{{ path('pdfRecettage', {id: recettage.id, slug: recettage.slug}) }}" class="btn btn-primary">Telecharger le recettage</a>
         </div>
     </div>
 {% endblock %}

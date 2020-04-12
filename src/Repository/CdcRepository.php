@@ -27,7 +27,7 @@ class CdcRepository extends ServiceEntityRepository
     public function findAllVisible(): array
     {
         return $this->findVisibleQuery('c')
-            ->orderBy('c.id', 'ASC')
+            ->orderBy('c.id', 'DESC')
             ->getQuery()
             ->getResult()
         ;
@@ -39,7 +39,7 @@ class CdcRepository extends ServiceEntityRepository
     public function findLatest(): array
     {
         return $this->findVisibleQuery('c')
-        ->orderBy('c.id', 'ASC')
+        ->orderBy('c.id', 'DESC')
         ->setMaxResults(10)
         ->getQuery()
         ->getResult()
@@ -49,7 +49,7 @@ class CdcRepository extends ServiceEntityRepository
     private function findVisibleQuery(): QueryBuilder
     {
         return $this->createQueryBuilder('c')
-        ->orderBy('c.id', 'ASC');
+        ->orderBy('c.id', 'DESC');
     }
 
     // /**

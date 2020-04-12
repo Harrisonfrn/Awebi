@@ -23,7 +23,7 @@
             <h2>Contrainte : {{ cdc.contrainte }}</h2>
             <h2>Priorité : {{ cdc.priority }}</h2>
 
-            <a href="" class="btn btn-primary">Telecharger le cahier des charges</a>
+            <a href="{{ path('pdfCdc', {id: cdc.id, slug: cdc.slug}) }}" class="btn btn-primary">Telecharger le cahier des charges</a>
         </div>
     </div>
 {% endblock %}

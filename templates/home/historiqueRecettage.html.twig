@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Historique Recettagee{% endblock %}
+
+{% block body %}
+
+    <div class="jumbotron text-center">
+        <h1>Historique des Recettage de l'agence Awebi</h1>
+    </div>
+
+    <div class="container">
+            <div class="row flex mt-4 mb-4">
+                {% for recettage in recettages %}
+                    {% include 'recettage/_recettage.html.twig' %}
+                {% endfor %}
+            </div>
+    </div>
+    
+{% endblock %}
