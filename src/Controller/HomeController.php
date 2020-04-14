@@ -42,7 +42,7 @@ class HomeController extends AbstractController
      */
     public function historiqueCdc(CdcRepository $cdcRepository)
     {
-        $cdcs = $cdcRepository->findAllVisible();
+        $cdcs = $cdcRepository->findLatest();
 
         return $this->render('home/historiqueCdc.html.twig', [
             'cdcs' => $cdcs
@@ -54,7 +54,7 @@ class HomeController extends AbstractController
      */
     public function historiqueRecettage(RecettageRepository $recettageRepository)
     {
-        $recettages = $recettageRepository->findAllVisible();
+        $recettages = $recettageRepository->findLatest();
 
         return $this->render('home/historiqueRecettage.html.twig', [
             'recettages' => $recettages
