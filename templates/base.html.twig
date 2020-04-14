@@ -24,12 +24,16 @@
                     Historique
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  {% if is_granted('ROLE_ADMIN') %}
                     <a class="dropdown-item" href="{{ path('historiqueRecettage') }}">Recettage</a>
+                    {% endif %}
                     <a class="dropdown-item" href="{{ path('historiqueCdc') }}">Cahier des charges</a>
                 </li>
+                {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item">
                   <a class="nav-link {% if current_menu is defined and current_menu == 'creationRecettage' %} active {% endif %}" href="{{ path('new_recettage') }}">Créer un recettage</a>
                 </li>
+                {% endif %}
                 <li class="nav-item">
                   <a class="nav-link {% if current_menu is defined and current_menu == 'creationCdc' %} active {% endif %}" href="{{ path('cdc_new') }}">Créer un cdc</a>
                 </li>
