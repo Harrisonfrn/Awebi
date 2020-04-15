@@ -17,7 +17,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                  <a class="nav-link " href="{{ path('admin')}}">Admin</a>
+                  <a class="nav-link " href="{{ path('admin')}}">Gestion</a>
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -38,6 +38,14 @@
                   <a class="nav-link {% if current_menu is defined and current_menu == 'creationCdc' %} active {% endif %}" href="{{ path('cdc_new') }}">Créer un cdc</a>
                 </li>
               </ul>
+
+
+              <ul class="nav navbar-bar">
+                    <li class="nav-item">
+                      <a href="" class="nav-link text-white">Client</a>
+                    </li>
+              </ul>
+
 
                 {% if app.user %}
                   <ul class="nav navbar-bar">
