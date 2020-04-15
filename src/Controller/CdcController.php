@@ -44,4 +44,25 @@ class CdcController extends AbstractController
             'current_menu' => 'creationCdc'
         ]);
     }
+
+     /**
+     * @Route("/client/edition/cahier_des_charges/{id}", name="client_editCdc", methods="GET|POST")
+     */
+    /*public function editCdc(Cdc $cdc, Request $request)
+    {
+        $cdcForm = $this->createForm(CdcType::class, $cdc);
+        $cdcForm->handleRequest($request);
+
+        if ($cdcForm->isSubmitted() && $cdcForm->isValid()) {
+            $this->em->flush();
+            $this->addFlash('success', 'Cahier des charges modifié avec succès');
+
+            return $this->redirectToRoute('historiqueCdc');
+        }
+
+        return $this->render('admin/rapport/editCdc.html.twig',[
+            'cdc' => $cdc,
+            'cdcForm' => $cdcForm->createView()
+        ]);
+    }*/
 }
